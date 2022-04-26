@@ -13,7 +13,7 @@ import com.geekbrains.listofemployees.domain.models.EmployersViewModels
 import com.geekbrains.listofemployees.domain.models.ViewModelFactory
 import com.geekbrains.listofemployees.ui.recyclerview.RecyclerViewAdapter
 
-class FragmentEmployers: Fragment() {
+class FragmentEmployers : Fragment() {
 
     companion object {
         fun newInstance() = FragmentEmployers()
@@ -42,19 +42,19 @@ class FragmentEmployers: Fragment() {
     }
 
     private fun initViews() {
-        viewModel.onShowList() // показываем список пользователей
+        viewModel.onShowList()
         recyclerViewMain()
     }
 
     private fun recyclerViewMain() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-//        adapter.setHasStableIds(true) // сетит список (типа внутр. diffutils)
+        adapter.setHasStableIds(true)
         binding.recyclerView.adapter = adapter
     }
 
     private fun initIncomingEvents() {
         viewModel.repos.observe(viewLifecycleOwner) {
-            adapter.setData(it) // подхватываем обновления и запрашиваем
+            adapter.setData(it.company.employees)
         }
     }
 
@@ -62,5 +62,4 @@ class FragmentEmployers: Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

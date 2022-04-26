@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.listofemployees.R
 import com.geekbrains.listofemployees.databinding.RecyclerItemListBinding
 import com.geekbrains.listofemployees.domain.Employee
-import com.geekbrains.listofemployees.domain.EmployeesEntity
 
-class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val binding = RecyclerItemListBinding.bind(itemView)
 
     companion object {
@@ -20,11 +19,9 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         }
     }
 
-    fun bind(item: EmployeesEntity) {
-        binding.itemName.text = item.company.employees[0].name
-        binding.itemPhone.text = item.company.employees[0].phoneNumber
-        binding.cardViewContainer.setOnClickListener {
-
-        }
+    fun bind(item: Employee) {
+        binding.itemName.text = item.name
+        binding.itemPhone.text = item.phone_number
     }
+
 }

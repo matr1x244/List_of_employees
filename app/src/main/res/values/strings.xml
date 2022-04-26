@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">List of employees</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="name_employee">Name Employee</string>
+    <string name="name">name:</string>
+    <string name="phone">phone:</string>
 </resources>

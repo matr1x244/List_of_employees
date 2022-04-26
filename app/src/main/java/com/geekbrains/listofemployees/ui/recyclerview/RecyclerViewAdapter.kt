@@ -4,16 +4,19 @@ import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.listofemployees.domain.Employee
-import com.geekbrains.listofemployees.domain.EmployeesEntity
 
-class RecyclerViewAdapter: RecyclerView.Adapter<ViewHolder>() {
+class RecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>() {
 
-    private var userList: MutableList<EmployeesEntity> = mutableListOf()
+    private var userList: MutableList<Employee> = mutableListOf()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(newUsersList: List<EmployeesEntity>) {
+    fun setData(newUsersList: List<Employee>) {
         userList.clear()
         userList.addAll(newUsersList)
+        userList.sortBy { it.phone_number }
+        userList.removeAt(0)
+        userList.sortBy { it.name }
+        userList.removeAt(0)
         notifyDataSetChanged()
     }
 
@@ -25,7 +28,7 @@ class RecyclerViewAdapter: RecyclerView.Adapter<ViewHolder>() {
         holder.bind(getItem(position))
     }
 
-    private fun getItem(position: Int): EmployeesEntity = userList[position]
+    private fun getItem(position: Int): Employee = userList[position]
 
     override fun getItemCount() = userList.size
 }

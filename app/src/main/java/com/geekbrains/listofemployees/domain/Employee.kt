@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Employee(
     val name: String?,
-    val phoneNumber: String?,
+    val phone_number: String?,
     val skills: List<String>
-): Parcelable
+) : Parcelable

@@ -10,4 +10,4 @@ data class Company(
     val age: String,
     val competences: List<String>,
     val employees: List<Employee>
-): Parcelable
+) : Parcelable

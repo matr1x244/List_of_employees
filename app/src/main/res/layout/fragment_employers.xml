@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="@dimen/base_5dp">
 
     <LinearLayout
         android:id="@+id/linear_layout_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/base_5dp"
         android:orientation="horizontal">
 
         <androidx.recyclerview.widget.RecyclerView

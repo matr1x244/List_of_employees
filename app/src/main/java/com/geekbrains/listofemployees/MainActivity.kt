@@ -1,7 +1,7 @@
 package com.geekbrains.listofemployees
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.geekbrains.listofemployees.ui.FragmentEmployers
 
 class MainActivity : AppCompatActivity() {
