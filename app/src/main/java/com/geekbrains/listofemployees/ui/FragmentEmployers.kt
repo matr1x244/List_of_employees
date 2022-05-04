@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.geekbrains.listofemployees.app
 import com.geekbrains.listofemployees.databinding.FragmentEmployersBinding
 import com.geekbrains.listofemployees.domain.models.EmployersViewModels
-import com.geekbrains.listofemployees.domain.models.ViewModelFactory
 import com.geekbrains.listofemployees.ui.recyclerview.RecyclerViewAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentEmployers : Fragment() {
 
@@ -22,7 +20,7 @@ class FragmentEmployers : Fragment() {
     private var _binding: FragmentEmployersBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: EmployersViewModels by viewModels { ViewModelFactory(app.getRepository) }
+    private val viewModel: EmployersViewModels by viewModel()
 
     private val adapter = RecyclerViewAdapter()
 
