@@ -37,6 +37,7 @@ class FragmentEmployers : Fragment() {
 
         initViews()
         initIncomingEvents()
+
     }
 
     private fun initViews() {

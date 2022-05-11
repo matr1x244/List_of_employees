@@ -13,7 +13,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>() {
     fun setData(newUsersList: List<Employee>) {
         userList.clear()
         userList.addAll(newUsersList)
-        userList.sortBy { it.phone_number }
+        userList.sortBy { it.phoneNumber }
         userList.removeAt(0)
         userList.sortBy { it.name }
         userList.removeAt(0)
