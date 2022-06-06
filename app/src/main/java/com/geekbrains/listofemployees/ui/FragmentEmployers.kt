@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.listofemployees.databinding.FragmentEmployersBinding
@@ -22,7 +23,9 @@ class FragmentEmployers : Fragment() {
 
     private val viewModel: EmployersViewModels by viewModel()
 
-    private val adapter = RecyclerViewAdapter()
+    private val adapter = RecyclerViewAdapter {
+        Toast.makeText(context, "${it.name}", Toast.LENGTH_SHORT).show()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

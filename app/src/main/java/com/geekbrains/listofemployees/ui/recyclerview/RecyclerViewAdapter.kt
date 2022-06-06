@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.listofemployees.domain.Employee
 
-class RecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>() {
+class RecyclerViewAdapter(private val itemClick : (Employee) -> Unit) : RecyclerView.Adapter<ViewHolder>() {
 
     private var userList: MutableList<Employee> = mutableListOf()
 
@@ -25,7 +25,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), itemClick)
     }
 
     private fun getItem(position: Int): Employee = userList[position]
