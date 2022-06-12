@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.listofemployees.databinding.FragmentEmployersBinding
 import com.geekbrains.listofemployees.domain.models.EmployersViewModels
 import com.geekbrains.listofemployees.ui.recyclerview.RecyclerViewAdapter
+import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentEmployers : Fragment() {
@@ -40,7 +41,16 @@ class FragmentEmployers : Fragment() {
 
         initViews()
         initIncomingEvents()
+        coroutine()
+    }
 
+    private fun coroutine() {
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(5_000)
+            withContext(Dispatchers.Main) {
+                Toast.makeText(activity, "start scope: fun coroutine", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun initViews() {
