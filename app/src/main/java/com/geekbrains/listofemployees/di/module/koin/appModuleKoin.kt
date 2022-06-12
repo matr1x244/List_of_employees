@@ -4,14 +4,12 @@ import com.geekbrains.listofemployees.data.web.data.EmployeesAPI
 import com.geekbrains.listofemployees.data.web.data.RetrofitRequestImpl
 import com.geekbrains.listofemployees.domain.RepositoryEmployees
 import com.geekbrains.listofemployees.domain.models.EmployersViewModels
-import com.google.gson.GsonBuilder
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
-
 import retrofit2.converter.gson.GsonConverterFactory
 
 val appModuleKoin = module {
