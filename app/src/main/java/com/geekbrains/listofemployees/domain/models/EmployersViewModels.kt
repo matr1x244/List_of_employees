@@ -1,15 +1,13 @@
 package com.geekbrains.listofemployees.domain.models
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.geekbrains.listofemployees.domain.EmployeesEntity
 import com.geekbrains.listofemployees.domain.RepositoryEmployees
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class EmployersViewModels(private val getRepository: RepositoryEmployees) : ViewModel() {
 
@@ -17,12 +15,17 @@ class EmployersViewModels(private val getRepository: RepositoryEmployees) : View
     val repos: LiveData<EmployeesEntity> = _repos
 
     fun onShowList() {
+        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            Log.v("@@@", "No success $throwable")
+        }
         var newStart: Job? = null
         newStart?.cancel()
-        newStart = viewModelScope.launch(Dispatchers.IO) {
-            val result = getRepository.observerListUser()
-            withContext(Dispatchers.Main) {
-                _repos.postValue(result)
+        newStart = viewModelScope.launch(coroutineExceptionHandler) {
+            launch(Dispatchers.IO) {
+                val result = getRepository.observerListUser()
+                withContext(Dispatchers.Main) {
+                    _repos.postValue(result)
+                }
             }
         }
     }
