@@ -20,13 +20,11 @@ class EmployersViewModels(private val getRepository: RepositoryEmployees) : View
         }
         var newStart: Job? = null
         newStart?.cancel()
-        newStart = viewModelScope.launch(coroutineExceptionHandler) {
-            launch(Dispatchers.IO) {
+        newStart = viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
                 val result = getRepository.observerListUser()
                 withContext(Dispatchers.Main) {
                     _repos.postValue(result)
                 }
-            }
         }
     }
 
