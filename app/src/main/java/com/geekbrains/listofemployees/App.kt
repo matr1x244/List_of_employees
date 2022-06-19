@@ -1,6 +1,8 @@
 package com.geekbrains.listofemployees
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
 import com.geekbrains.listofemployees.di.module.koin.appModuleKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -17,4 +19,8 @@ class App : Application() {
         }
     }
 
+    companion object{
+        @SuppressLint( "StaticFieldLeak")
+        lateinit var appInstance: Context
+    }
 }

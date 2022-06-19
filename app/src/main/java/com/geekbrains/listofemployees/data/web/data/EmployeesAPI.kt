@@ -1,6 +1,6 @@
 package com.geekbrains.listofemployees.data.web.data
 
-import com.geekbrains.listofemployees.domain.EmployeesEntity
+import com.geekbrains.listofemployees.domain.data.models.base.EmployeesEntity
 import retrofit2.http.GET
 
 interface EmployeesAPI {

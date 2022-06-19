@@ -1,15 +1,18 @@
-package com.geekbrains.listofemployees.ui
+package com.geekbrains.listofemployees.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.geekbrains.listofemployees.R
 import com.geekbrains.listofemployees.databinding.FragmentEmployersBinding
 import com.geekbrains.listofemployees.domain.models.EmployersViewModels
-import com.geekbrains.listofemployees.ui.recyclerview.RecyclerViewAdapter
+import com.geekbrains.listofemployees.ui.main.recyclerview.RecyclerViewAdapter
+import com.geekbrains.listofemployees.ui.room.FragmentRoomEmployers
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentEmployers : Fragment() {
@@ -45,12 +48,29 @@ class FragmentEmployers : Fragment() {
     private fun initViews() {
         viewModel.onShowList()
         recyclerViewMain()
+        buttonRoom()
     }
 
     private fun recyclerViewMain() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         adapter.setHasStableIds(true)
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun buttonRoom() {
+        binding.buttonFragmentRoom.setOnClickListener {
+            activity?.supportFragmentManager?.let { fragment ->
+                fragment.beginTransaction()
+                    .add(R.id.container_main_activity, FragmentRoomEmployers.newInstance())
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
+        buttonSaveRoom()
+    }
+
+    private fun buttonSaveRoom() {
+
     }
 
     private fun initIncomingEvents() {
