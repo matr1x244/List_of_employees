@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.listofemployees.R
 import com.geekbrains.listofemployees.databinding.FragmentEmployersBinding
+import com.geekbrains.listofemployees.domain.data.models.room.EmployeeEntityRoom
 import com.geekbrains.listofemployees.domain.models.EmployersViewModels
 import com.geekbrains.listofemployees.ui.main.recyclerview.RecyclerViewAdapter
 import com.geekbrains.listofemployees.ui.room.FragmentRoomEmployers

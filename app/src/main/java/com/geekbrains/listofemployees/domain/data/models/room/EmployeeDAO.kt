@@ -8,7 +8,7 @@ interface EmployeeDAO {
     @Query("SELECT * FROM employee_table")
     fun all(): List<EmployeeEntityRoom>
 
-    @Query("SELECT * FROM employee_table WHERE employee_name LIKE :nameEmployee")
+    @Query("SELECT * FROM employee_table WHERE name LIKE :nameEmployee")
     fun getDataByWord(nameEmployee: String): List<EmployeeEntityRoom>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -20,7 +20,7 @@ interface EmployeeDAO {
     @Delete
     fun delete(entity: EmployeeEntityRoom)
 
-    @Query("DELETE FROM employee_table WHERE employee_name = :nameEmployee")
+    @Query("DELETE FROM employee_table WHERE name = :nameEmployee")
     fun deleteByEmployeeName(nameEmployee: String?)
 
     @Query("DELETE FROM employee_table")
