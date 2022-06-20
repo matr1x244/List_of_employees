@@ -2,7 +2,7 @@ package com.geekbrains.listofemployees.di.module.koin
 
 import com.geekbrains.listofemployees.data.web.data.EmployeesAPI
 import com.geekbrains.listofemployees.data.web.data.RetrofitRequestImpl
-import com.geekbrains.listofemployees.domain.data.models.RepositoryEmployees
+import com.geekbrains.listofemployees.domain.data.models.base.RepositoryEmployees
 import com.geekbrains.listofemployees.domain.models.EmployersRoomViewModels
 import com.geekbrains.listofemployees.domain.models.EmployersViewModels
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -32,5 +32,5 @@ val appModuleKoin = module {
 
 
     viewModel { EmployersViewModels(get()) }
-    viewModel { EmployersRoomViewModels(get())}
+    viewModel { EmployersRoomViewModels(get()) }
 }

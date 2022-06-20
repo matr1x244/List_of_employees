@@ -1,8 +1,7 @@
 package com.geekbrains.listofemployees.data.web.data
 
-import com.geekbrains.listofemployees.domain.data.models.base.Employee
 import com.geekbrains.listofemployees.domain.data.models.base.EmployeesEntity
-import com.geekbrains.listofemployees.domain.data.models.RepositoryEmployees
+import com.geekbrains.listofemployees.domain.data.models.base.RepositoryEmployees
 import com.geekbrains.listofemployees.domain.data.models.room.DataBaseEmployee
 import com.geekbrains.listofemployees.domain.data.models.room.EmployeeEntityRoom
 
@@ -12,31 +11,15 @@ class RetrofitRequestImpl(private val api: EmployeesAPI) : RepositoryEmployees {
         return api.listUsers()
     }
 
-    /**
-     * Для базы данных
-     */
-    override suspend fun getAllHistory(): List<EmployeeEntityRoom> {
-        return convertHistoryEntity(DataBaseEmployee.db.employeeDao().all())
-    }
-
-    override suspend fun saveEntity(employee: EmployeesEntity) {
+    override suspend fun saveEntity(employee: EmployeeEntityRoom) {
         DataBaseEmployee.db.employeeDao().insert(convertToEntity(employee))
     }
 
-    private fun convertHistoryEntity(entityList: List<EmployeeEntityRoom>): List<EmployeeEntityRoom> {
-        return entityList.map {
-            EmployeeEntityRoom(
-                it.id,
-                it.name,
-                it.phoneNumber)
-        }
-    }
-
-    private fun convertToEntity(employee: EmployeesEntity): EmployeeEntityRoom {
+    private fun convertToEntity(employee: EmployeeEntityRoom): EmployeeEntityRoom {
         return EmployeeEntityRoom(
             0,
-            employee.company.name,
-            employee.company.employees.toString())
+            employee.name,
+            employee.phoneNumber
+        )
     }
-
 }

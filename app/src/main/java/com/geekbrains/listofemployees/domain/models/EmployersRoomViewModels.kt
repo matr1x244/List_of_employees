@@ -4,21 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.geekbrains.listofemployees.domain.data.models.RepositoryEmployees
+import com.geekbrains.listofemployees.domain.data.models.room.RepositoryRoom
 import com.geekbrains.listofemployees.domain.data.models.room.EmployeeEntityRoom
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class EmployersRoomViewModels(private val getRepository: RepositoryEmployees) : ViewModel() {
+class EmployersRoomViewModels(private val repository: RepositoryRoom) : ViewModel() {
 
     private val _repos = MutableLiveData<List<EmployeeEntityRoom>>()
     val repos: LiveData<List<EmployeeEntityRoom>> = _repos
 
-    fun onShowList() {
-       viewModelScope.launch(Dispatchers.IO) {
-                 var result = getRepository.getAllHistory()
-                 withContext(Dispatchers.Main) {
-                     _repos.postValue(result)
-                 }
+    fun onShowListRoom() {
+        viewModelScope.launch(Dispatchers.IO) {
+            var result = repository.getAllHistory()
+            withContext(Dispatchers.Main) {
+                _repos.postValue(result)
+            }
         }
     }
 

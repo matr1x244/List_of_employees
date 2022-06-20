@@ -5,17 +5,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.geekbrains.listofemployees.domain.data.models.base.Employee
 import com.geekbrains.listofemployees.domain.data.models.base.EmployeesEntity
-import com.geekbrains.listofemployees.domain.data.models.RepositoryEmployees
+import com.geekbrains.listofemployees.domain.data.models.base.RepositoryEmployees
+import com.geekbrains.listofemployees.domain.data.models.room.EmployeeEntityRoom
 import kotlinx.coroutines.*
 
-class EmployersViewModels(private val getRepository: RepositoryEmployees) : ViewModel() {
+class EmployersViewModels(private val repository: RepositoryEmployees) : ViewModel() {
 
     private val _repos = MutableLiveData<EmployeesEntity>()
     val repos: LiveData<EmployeesEntity> = _repos
 
-//    val historyLiveData = MutableLiveData<Unit>()
+//    private val _history = MutableLiveData<EmployeesEntity>()
+//    val history: LiveData<EmployeesEntity> = _history
+
+    private val history = MutableLiveData<Unit>()
 
     fun onShowList() {
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -24,21 +27,20 @@ class EmployersViewModels(private val getRepository: RepositoryEmployees) : View
         var newStart: Job? = null
         newStart?.cancel()
         newStart = viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
-            val result = getRepository.observerListUser()
+            val result = repository.observerListUser()
             withContext(Dispatchers.Main) {
                 _repos.postValue(result)
             }
         }
     }
 
-
-//    fun addEmployee(employee: Employee) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val result = getRepository.saveEntity(employee)
-//            withContext(Dispatchers.Main) {
-//                historyLiveData.postValue(result)
-//            }
-//        }
-//    }
+    fun saveEntity(employee: EmployeeEntityRoom) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = repository.saveEntity(employee)
+            withContext(Dispatchers.Main) {
+                history.postValue(result)
+            }
+        }
+    }
 
 }

@@ -7,13 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.geekbrains.listofemployees.R
 import com.geekbrains.listofemployees.databinding.FragmentRoomEmployersBinding
-import com.geekbrains.listofemployees.domain.data.models.base.Employee
 import com.geekbrains.listofemployees.domain.models.EmployersRoomViewModels
-import com.geekbrains.listofemployees.domain.models.EmployersViewModels
 import com.geekbrains.listofemployees.ui.room.recyclerview.RecyclerViewAdapterRoom
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentRoomEmployers : Fragment() {
@@ -47,11 +43,11 @@ class FragmentRoomEmployers : Fragment() {
     }
 
     private fun initViews() {
-        viewModel.onShowList()
-        recyclerViewMain()
+        viewModel.onShowListRoom() // тут проблема
+        recyclerViewRoom()
     }
 
-    private fun recyclerViewMain() {
+    private fun recyclerViewRoom() {
         binding.recyclerViewRoom.layoutManager = LinearLayoutManager(context)
         adapter.setHasStableIds(true)
         binding.recyclerViewRoom.adapter = adapter
@@ -59,7 +55,7 @@ class FragmentRoomEmployers : Fragment() {
 
     private fun initIncomingEvents() {
         viewModel.repos.observe(viewLifecycleOwner) {
-            adapter.setData(it.company.employees)
+            adapter.setData(it) // тут проблема
         }
     }
 
