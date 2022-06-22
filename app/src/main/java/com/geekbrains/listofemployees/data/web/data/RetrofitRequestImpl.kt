@@ -1,9 +1,10 @@
 package com.geekbrains.listofemployees.data.web.data
 
+import com.geekbrains.listofemployees.domain.data.models.base.Employee
 import com.geekbrains.listofemployees.domain.data.models.base.EmployeesEntity
 import com.geekbrains.listofemployees.domain.data.models.base.RepositoryEmployees
 import com.geekbrains.listofemployees.domain.data.models.room.DataBaseEmployee
-import com.geekbrains.listofemployees.domain.data.models.room.EmployeeEntityRoom
+import com.geekbrains.listofemployees.domain.data.models.room.HistoryEntity
 
 class RetrofitRequestImpl(private val api: EmployeesAPI) : RepositoryEmployees {
 
@@ -11,13 +12,12 @@ class RetrofitRequestImpl(private val api: EmployeesAPI) : RepositoryEmployees {
         return api.listUsers()
     }
 
-    override suspend fun saveEntity(employee: EmployeeEntityRoom) {
+    override suspend fun saveEntity(employee: Employee) {
         DataBaseEmployee.db.employeeDao().insert(convertToEntity(employee))
     }
 
-    private fun convertToEntity(employee: EmployeeEntityRoom): EmployeeEntityRoom {
-        return EmployeeEntityRoom(
-            0,
+    private fun convertToEntity(employee: Employee): HistoryEntity {
+        return HistoryEntity(0,
             employee.name,
             employee.phoneNumber
         )

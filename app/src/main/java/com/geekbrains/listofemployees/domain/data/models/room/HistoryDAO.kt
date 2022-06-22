@@ -3,22 +3,22 @@ package com.geekbrains.listofemployees.domain.data.models.room
 import androidx.room.*
 
 @Dao
-interface EmployeeDAO {
+interface HistoryDAO {
 
     @Query("SELECT * FROM employee_table")
-    fun all(): List<EmployeeEntityRoom>
+    fun allHistory(): List<HistoryEntity>
 
     @Query("SELECT * FROM employee_table WHERE name LIKE :nameEmployee")
-    fun getDataByWord(nameEmployee: String): List<EmployeeEntityRoom>
+    fun getDataByWord(nameEmployee: String): List<HistoryEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(entity: EmployeeEntityRoom)
+    fun insert(entity: HistoryEntity)
 
     @Update
-    fun update(entity: EmployeeEntityRoom)
+    fun update(entity: HistoryEntity)
 
     @Delete
-    fun delete(entity: EmployeeEntityRoom)
+    fun delete(entity: HistoryEntity)
 
     @Query("DELETE FROM employee_table WHERE name = :nameEmployee")
     fun deleteByEmployeeName(nameEmployee: String?)

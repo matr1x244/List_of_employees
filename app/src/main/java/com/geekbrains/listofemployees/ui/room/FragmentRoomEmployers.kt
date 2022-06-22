@@ -25,6 +25,8 @@ class FragmentRoomEmployers : Fragment() {
 
     private val adapter = RecyclerViewAdapterRoom {
         Toast.makeText(context, "${it.name} in Room", Toast.LENGTH_SHORT).show()
+        viewModel.deleteEmployee(it)
+        viewModel.onShowListRoom()
     }
 
     override fun onCreateView(
@@ -43,7 +45,7 @@ class FragmentRoomEmployers : Fragment() {
     }
 
     private fun initViews() {
-        viewModel.onShowListRoom() // тут проблема
+        viewModel.onShowListRoom()
         recyclerViewRoom()
     }
 
@@ -55,7 +57,7 @@ class FragmentRoomEmployers : Fragment() {
 
     private fun initIncomingEvents() {
         viewModel.repos.observe(viewLifecycleOwner) {
-            adapter.setData(it) // тут проблема
+            adapter.setData(it)
         }
     }
 

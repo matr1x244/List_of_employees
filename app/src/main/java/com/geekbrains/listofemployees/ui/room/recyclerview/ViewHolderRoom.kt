@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.listofemployees.R
 import com.geekbrains.listofemployees.databinding.RecyclerItemRoomListEmployeeBinding
 import com.geekbrains.listofemployees.domain.data.models.base.Employee
-import com.geekbrains.listofemployees.domain.data.models.room.EmployeeEntityRoom
+import com.geekbrains.listofemployees.domain.data.models.room.HistoryEntity
 
 class ViewHolderRoom(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val binding = RecyclerItemRoomListEmployeeBinding.bind(itemView)
@@ -20,9 +20,12 @@ class ViewHolderRoom(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
     }
 
-    fun bind(item: EmployeeEntityRoom, listener: EmployeeEntityRoom.() -> Unit) {
+    fun bind(item: Employee, listener: Employee.() -> Unit) {
         binding.itemName.text = item.name
         binding.itemPhone.text = item.phoneNumber
+        binding.imageButtonDeleteHistory.setOnClickListener {
+            listener.invoke(item)
+        }
         binding.root.setOnClickListener {
             listener.invoke(item)
         }

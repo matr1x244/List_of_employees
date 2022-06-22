@@ -6,7 +6,7 @@ import com.geekbrains.listofemployees.App
 
 @androidx.room.Database(
     entities = [
-        EmployeeEntityRoom::class
+        HistoryEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -14,7 +14,7 @@ import com.geekbrains.listofemployees.App
 
 abstract class DataBaseEmployee : RoomDatabase() {
 
-    abstract fun employeeDao(): EmployeeDAO
+    abstract fun employeeDao(): HistoryDAO
 
     companion object {
         private const val DB_NAME = "add_database_employee.db"
