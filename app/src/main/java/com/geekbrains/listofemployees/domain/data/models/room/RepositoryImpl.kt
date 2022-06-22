@@ -17,7 +17,7 @@ class RepositoryImpl : RepositoryRoom {
         }
     }
 
-    override fun deleteEntity(employee: Employee) {
+    override suspend fun deleteEntity(employee: Employee) {
         DataBaseEmployee.db.employeeDao().deleteByEmployeeName(convertHistoryEntityToUser(employee).name)
     }
 

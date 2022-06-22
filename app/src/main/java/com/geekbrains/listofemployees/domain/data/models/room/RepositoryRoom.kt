@@ -7,6 +7,6 @@ interface RepositoryRoom {
 
     suspend fun getAllHistory(): List<Employee>
 
-    fun deleteEntity(employee: Employee)
+    suspend fun deleteEntity(employee: Employee)
 
 }

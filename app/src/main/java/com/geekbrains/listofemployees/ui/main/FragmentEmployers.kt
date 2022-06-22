@@ -66,11 +66,6 @@ class FragmentEmployers : Fragment() {
                     .commit()
             }
         }
-        buttonSaveRoom()
-    }
-
-    private fun buttonSaveRoom() {
-
     }
 
     private fun initIncomingEvents() {
