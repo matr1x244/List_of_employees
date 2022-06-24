@@ -18,13 +18,16 @@ class RepositoryImpl : RepositoryRoom {
     }
 
     override suspend fun deleteEntity(employee: Employee) {
-        DataBaseEmployee.db.employeeDao().deleteByEmployeeName(convertHistoryEntityToUser(employee).name)
+        DataBaseEmployee.db.employeeDao()
+            .deleteByEmployeeName(convertHistoryEntityToUser(employee).name)
     }
 
     private fun convertHistoryEntityToUser(employee: Employee): HistoryEntity {
-        return HistoryEntity(0,
+        return HistoryEntity(
+            0,
             employee.name,
-            employee.phoneNumber
+            employee.phoneNumber,
+            skill = "null"
         )
     }
 }
