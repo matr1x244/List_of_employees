@@ -1,4 +1,4 @@
-package com.geekbrains.listofemployees.domain.models
+package com.geekbrains.listofemployees.domain.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

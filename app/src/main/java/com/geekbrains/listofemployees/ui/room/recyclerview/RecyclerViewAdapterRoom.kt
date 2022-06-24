@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.listofemployees.domain.data.models.base.Employee
-import com.geekbrains.listofemployees.domain.data.models.room.HistoryEntity
 
 class RecyclerViewAdapterRoom(private val itemClick: (Employee) -> Unit) :
     RecyclerView.Adapter<ViewHolderRoom>() {

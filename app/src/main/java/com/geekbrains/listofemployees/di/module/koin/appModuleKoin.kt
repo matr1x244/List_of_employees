@@ -3,10 +3,10 @@ package com.geekbrains.listofemployees.di.module.koin
 import com.geekbrains.listofemployees.data.web.data.EmployeesAPI
 import com.geekbrains.listofemployees.data.web.data.RetrofitRequestImpl
 import com.geekbrains.listofemployees.domain.data.models.base.RepositoryEmployees
-import com.geekbrains.listofemployees.domain.data.models.room.RepositoryRoom
 import com.geekbrains.listofemployees.domain.data.models.room.RepositoryImpl
-import com.geekbrains.listofemployees.domain.models.EmployersRoomViewModels
-import com.geekbrains.listofemployees.domain.models.EmployersViewModels
+import com.geekbrains.listofemployees.domain.data.models.room.RepositoryRoom
+import com.geekbrains.listofemployees.domain.viewModels.EmployersRoomViewModels
+import com.geekbrains.listofemployees.domain.viewModels.EmployersViewModels
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.CallAdapter

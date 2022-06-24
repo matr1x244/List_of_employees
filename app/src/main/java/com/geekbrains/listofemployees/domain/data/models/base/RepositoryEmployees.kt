@@ -1,11 +1,9 @@
 package com.geekbrains.listofemployees.domain.data.models.base
 
-import com.geekbrains.listofemployees.domain.data.models.room.HistoryEntity
-
 interface RepositoryEmployees {
 
     suspend fun observerListUser(): EmployeesEntity
 
-    suspend fun saveEntity(employee: Employee) // HistoryEntity?
+    suspend fun saveEntity(employee: Employee)
 
 }

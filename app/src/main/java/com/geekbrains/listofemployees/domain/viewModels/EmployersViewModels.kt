@@ -1,4 +1,4 @@
-package com.geekbrains.listofemployees.domain.models
+package com.geekbrains.listofemployees.domain.viewModels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -26,17 +26,16 @@ class EmployersViewModels(private val repository: RepositoryEmployees) : ViewMod
         newStart?.cancel()
         newStart = viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
             val result = repository.observerListUser()
-//            repository.saveEntity(result) ??
             withContext(Dispatchers.Main) {
                 _repos.postValue(result)
             }
         }
     }
 
-    fun onSaveUser(employee: Employee){
+    fun onSaveUser(employee: Employee) {
         viewModelScope.launch(Dispatchers.IO) {
             val user = repository.saveEntity(employee) //
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 _history.value
             }
         }

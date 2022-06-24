@@ -24,8 +24,8 @@ class App : Application() {
     /**
      * Room
      */
-    companion object{
-        @SuppressLint( "StaticFieldLeak")
+    companion object {
+        @SuppressLint("StaticFieldLeak")
         lateinit var appInstance: Context
     }
 }

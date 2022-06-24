@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.listofemployees.databinding.FragmentRoomEmployersBinding
-import com.geekbrains.listofemployees.domain.models.EmployersRoomViewModels
+import com.geekbrains.listofemployees.domain.viewModels.EmployersRoomViewModels
 import com.geekbrains.listofemployees.ui.room.recyclerview.RecyclerViewAdapterRoom
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
