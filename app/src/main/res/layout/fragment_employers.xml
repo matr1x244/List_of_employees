@@ -28,10 +28,17 @@
         android:id="@+id/button_fragment_room"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@android:drawable/ic_menu_edit"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/base_5dp"
         android:layout_marginBottom="@dimen/base_5dp"/>
+
+    <ImageView
+        android:id="@+id/image_tittle"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginTop="@dimen/base_5dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -22,9 +22,6 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(item: Employee, listener: Employee.() -> Unit) {
         binding.itemName.text = item.name
         binding.itemPhone.text = item.phoneNumber
-        binding.imageButtonAddHistory.setOnClickListener {
-            println("imageButtonAddHistory PRESSED ${item.name}")
-        }
         binding.root.setOnClickListener {
             listener.invoke(item)
         }

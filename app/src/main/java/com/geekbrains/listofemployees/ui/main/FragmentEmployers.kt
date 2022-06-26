@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.geekbrains.listofemployees.R
 import com.geekbrains.listofemployees.databinding.FragmentEmployersBinding
-import com.geekbrains.listofemployees.domain.data.models.room.EmployeeEntityRoom
-import com.geekbrains.listofemployees.domain.models.EmployersViewModels
+import com.geekbrains.listofemployees.domain.viewModels.EmployersViewModels
 import com.geekbrains.listofemployees.ui.main.recyclerview.RecyclerViewAdapter
 import com.geekbrains.listofemployees.ui.room.FragmentRoomEmployers
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,6 +28,7 @@ class FragmentEmployers : Fragment() {
 
     private val adapter = RecyclerViewAdapter {
         Toast.makeText(context, "${it.name}", Toast.LENGTH_SHORT).show()
+        viewModel.onSaveUser(it)
     }
 
     override fun onCreateView(
@@ -50,12 +50,19 @@ class FragmentEmployers : Fragment() {
         viewModel.onShowList()
         recyclerViewMain()
         buttonRoom()
+        imageTittle()
     }
 
     private fun recyclerViewMain() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         adapter.setHasStableIds(true)
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun initIncomingEvents() {
+        viewModel.repos.observe(viewLifecycleOwner) {
+            adapter.setData(it.company.employees)
+        }
     }
 
     private fun buttonRoom() {
@@ -67,17 +74,14 @@ class FragmentEmployers : Fragment() {
                     .commit()
             }
         }
-        buttonSaveRoom()
     }
 
-    private fun buttonSaveRoom() {
+    private fun imageTittle() {
+        val url = "https://img.hhcdn.ru/employer-logo/3241525.png"
 
-    }
-
-    private fun initIncomingEvents() {
-        viewModel.repos.observe(viewLifecycleOwner) {
-            adapter.setData(it.company.employees)
-        }
+        Glide.with(requireActivity())
+            .load(url)
+            .into(binding.imageTittle)
     }
 
     override fun onDestroyView() {

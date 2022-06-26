@@ -1,13 +1,13 @@
-package com.geekbrains.listofemployees.domain.models
+package com.geekbrains.listofemployees.domain.viewModels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.geekbrains.listofemployees.domain.data.models.base.Employee
 import com.geekbrains.listofemployees.domain.data.models.base.EmployeesEntity
 import com.geekbrains.listofemployees.domain.data.models.base.RepositoryEmployees
-import com.geekbrains.listofemployees.domain.data.models.room.EmployeeEntityRoom
 import kotlinx.coroutines.*
 
 class EmployersViewModels(private val repository: RepositoryEmployees) : ViewModel() {
@@ -15,10 +15,8 @@ class EmployersViewModels(private val repository: RepositoryEmployees) : ViewMod
     private val _repos = MutableLiveData<EmployeesEntity>()
     val repos: LiveData<EmployeesEntity> = _repos
 
-//    private val _history = MutableLiveData<EmployeesEntity>()
-//    val history: LiveData<EmployeesEntity> = _history
-
-    private val history = MutableLiveData<Unit>()
+    private val _history = MutableLiveData<Employee>()
+    val history: LiveData<Employee> = _history
 
     fun onShowList() {
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -34,13 +32,15 @@ class EmployersViewModels(private val repository: RepositoryEmployees) : ViewMod
         }
     }
 
-    fun saveEntity(employee: EmployeeEntityRoom) {
+    fun onSaveUser(employee: Employee) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.saveEntity(employee)
+            val user = repository.saveEntity(employee) //
             withContext(Dispatchers.Main) {
-                history.postValue(result)
+                _history.value
             }
         }
     }
 
+
 }
+

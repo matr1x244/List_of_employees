@@ -12,6 +12,8 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        appInstance = this // Room
+
         startKoin {
             androidLogger()
             androidContext(this@App)
@@ -19,8 +21,11 @@ class App : Application() {
         }
     }
 
-    companion object{
-        @SuppressLint( "StaticFieldLeak")
+    /**
+     * Room
+     */
+    companion object {
+        @SuppressLint("StaticFieldLeak")
         lateinit var appInstance: Context
     }
 }

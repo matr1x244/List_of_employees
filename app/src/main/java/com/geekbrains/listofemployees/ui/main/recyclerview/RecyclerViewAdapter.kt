@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.listofemployees.domain.data.models.base.Employee
 
-class RecyclerViewAdapter(private val itemClick : (Employee) -> Unit) : RecyclerView.Adapter<ViewHolder>() {
+class RecyclerViewAdapter(private val itemClick: (Employee) -> Unit) :
+    RecyclerView.Adapter<ViewHolder>() {
 
     private var userList: MutableList<Employee> = mutableListOf()
 
