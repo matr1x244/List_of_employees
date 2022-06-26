@@ -8,6 +8,5 @@ import java.util.*
 data class HistoryEntity(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val name: String?,
-    val phoneNumber: String?,
-    val skill: String?
+    val phoneNumber: String?
 )

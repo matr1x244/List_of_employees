@@ -4,4 +4,5 @@
     <string name="name_employee">Name Employee</string>
     <string name="name">name:</string>
     <string name="phone">phone:</string>
+    <string name="room_no_internet">Интернет отсутствует, данные загружены из вашей истории..</string>
 </resources>

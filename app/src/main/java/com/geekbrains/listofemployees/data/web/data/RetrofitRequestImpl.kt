@@ -19,8 +19,7 @@ class RetrofitRequestImpl(private val api: EmployeesAPI) : RepositoryEmployees {
     private fun convertToEntity(employee: Employee): HistoryEntity {
         return HistoryEntity(0,
             employee.name,
-            employee.phoneNumber,
-            skill = "null"
+            employee.phoneNumber
         )
     }
 }

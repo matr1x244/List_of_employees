@@ -26,8 +26,7 @@ class RepositoryImpl : RepositoryRoom {
         return HistoryEntity(
             0,
             employee.name,
-            employee.phoneNumber,
-            skill = "null"
+            employee.phoneNumber
         )
     }
 }

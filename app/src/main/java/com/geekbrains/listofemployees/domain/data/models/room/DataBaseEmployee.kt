@@ -10,7 +10,7 @@ import com.geekbrains.listofemployees.App
     entities = [
         HistoryEntity::class
     ],
-    version = 2,
+    version = 1,
     exportSchema = false
 )
 
@@ -35,8 +35,7 @@ abstract class DataBaseEmployee : RoomDatabase() {
                 App.appInstance,
                 DataBaseEmployee::class.java,
                 DB_NAME
-            ).addMigrations(MIGRATION_1_2)
-                .build()
+            ).build()
         }
     }
 
