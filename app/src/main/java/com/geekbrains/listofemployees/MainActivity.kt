@@ -50,4 +50,9 @@ class MainActivity : AppCompatActivity() {
             .commitNow()
     }
 
+    override fun onPause() {
+        unregisterReceiver(networkStateReceiver)
+        super.onPause()
+    }
+
 }
