@@ -1,13 +1,19 @@
 package com.geekbrains.listofemployees
 
+import android.animation.ObjectAnimator
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AnticipateInterpolator
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.animation.doOnEnd
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.geekbrains.listofemployees.ui.main.FragmentEmployers
 import com.geekbrains.listofemployees.ui.room.FragmentRoomEmployers
 
@@ -15,9 +21,33 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        startSplash()
         setContentView(R.layout.activity_main)
-
         filterConnection()
+    }
+
+    private fun startSplash() {
+        val version = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S // Проверяем версию API Android
+        if (version) {
+            val screen = installSplashScreen() // запускаем splash screen
+            /**
+             * Создаём анимацию для splash screen
+             */
+            screen.setOnExitAnimationListener { screenProvider ->
+                ObjectAnimator.ofFloat(
+                    screenProvider.view,
+                    View.TRANSLATION_X,
+                    0f,
+                    screenProvider.view.height.toFloat()
+                ).apply {
+                    duration = 5000
+                    interpolator = AnticipateInterpolator()
+                    doOnEnd {
+                        screenProvider.remove()
+                    }
+                }.start()
+            }
+        }
     }
 
     private fun filterConnection() {
@@ -48,11 +78,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .add(R.id.container_main_activity, FragmentEmployers.newInstance())
             .commitNow()
-    }
-
-    override fun onPause() {
-        unregisterReceiver(networkStateReceiver)
-        super.onPause()
     }
 
 }
