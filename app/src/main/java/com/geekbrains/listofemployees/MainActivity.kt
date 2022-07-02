@@ -9,7 +9,6 @@ import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AnticipateInterpolator
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
@@ -33,12 +32,9 @@ class MainActivity : AppCompatActivity() {
             screen.setOnExitAnimationListener { screenProvider ->
                 ObjectAnimator.ofFloat(
                     screenProvider.view,
-                    View.TRANSLATION_X,
-                    0f,
-                    screenProvider.view.height.toFloat()
+                    View.ALPHA, 5f, 0f
                 ).apply {
-                    duration = 1000
-                    interpolator = AnticipateInterpolator()
+                    duration = 2000
                     doOnEnd {
                         screenProvider.remove()
                     }
