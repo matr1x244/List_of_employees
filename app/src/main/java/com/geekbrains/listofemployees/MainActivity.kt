@@ -27,12 +27,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startSplash() {
-        val version = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S // Проверяем версию API Android
+        val version = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
         if (version) {
-            val screen = installSplashScreen() // запускаем splash screen
-            /**
-             * Создаём анимацию для splash screen
-             */
+            val screen = installSplashScreen()
             screen.setOnExitAnimationListener { screenProvider ->
                 ObjectAnimator.ofFloat(
                     screenProvider.view,
@@ -40,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                     0f,
                     screenProvider.view.height.toFloat()
                 ).apply {
-                    duration = 5000
+                    duration = 1000
                     interpolator = AnticipateInterpolator()
                     doOnEnd {
                         screenProvider.remove()
@@ -49,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun filterConnection() {
         val filterConnection = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
@@ -80,4 +78,8 @@ class MainActivity : AppCompatActivity() {
             .commitNow()
     }
 
+    override fun onDestroy() {
+        unregisterReceiver(networkStateReceiver)
+        super.onDestroy()
+    }
 }
