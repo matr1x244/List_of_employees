@@ -1,5 +1,6 @@
 package com.geekbrains.listofemployees.ui.main
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,10 @@ import com.geekbrains.listofemployees.databinding.FragmentEmployersBinding
 import com.geekbrains.listofemployees.domain.viewModels.EmployersViewModels
 import com.geekbrains.listofemployees.ui.main.recyclerview.RecyclerViewAdapter
 import com.geekbrains.listofemployees.ui.room.FragmentRoomEmployers
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.concurrent.atomic.AtomicBoolean
 
 class FragmentEmployers : Fragment() {
 
@@ -31,6 +35,9 @@ class FragmentEmployers : Fragment() {
         viewModel.onSaveUser(it)
     }
 
+    private lateinit var flow : Flow <String>
+    private var jobForCancel : Job? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +51,39 @@ class FragmentEmployers : Fragment() {
 
         initViews()
         initIncomingEvents()
+
+        setupFlow()
+    }
+
+    private fun setupFlow() {
+        flow = flow {
+            for(i in 1..100000) {
+                delay(100) // кидаем данные с задержкой
+                emit(i.toString()) // кидаем в поток значение.
+            }
+        }.flowOn(Dispatchers.Default)
+        text()
+    }
+
+    private fun text() {
+        binding.tvFlow.text = ""
+        jobForCancel = CoroutineScope(Dispatchers.Main).launch {
+            flow.buffer().collect() { //вначале кидаем проверяем в buffer данные тут через collet() сетим данные
+                delay(400) // получаем данные с задержкой
+                binding.tvFlow.append(it)
+
+                binding.tvFlow.setTextColor(Color.CYAN) // задаем цвет
+
+                if(binding.tvFlow.text.length < 10){ // меняем цвет после условия
+                    binding.tvFlow.setTextColor(Color.YELLOW)
+                    }
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        jobForCancel?.cancel() // останавливаем поток данных
     }
 
     private fun initViews() {
