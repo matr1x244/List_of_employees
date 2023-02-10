@@ -17,7 +17,10 @@ import com.geekbrains.listofemployees.ui.room.FragmentRoomEmployers
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.LinkedList
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.random.Random
+import kotlin.system.measureTimeMillis
 
 class FragmentEmployers : Fragment() {
 
@@ -52,10 +55,67 @@ class FragmentEmployers : Fragment() {
         initViews()
         initIncomingEvents()
 
-        setupFlow()
+//        coldFlow() //flow
+//        hotFlow() // SharedFlow
+        hotFLow2() // StateFlow
+
+    }
+    //------------------
+    private fun createStateFlow(): Flow<String> {
+        val statesFlow = MutableStateFlow("")
+
+        CoroutineScope(Dispatchers.IO).launch {
+            listOf("1", "2", "3", "4","5","6").forEach{
+                statesFlow.value = it // записвает данные в лист
+                delay(100L) // задеркжка
+            }
+        }
+
+        return statesFlow
+    }
+    private fun hotFLow2() {
+        CoroutineScope(Dispatchers.Main).launch {
+            createStateFlow().collect {
+                delay(200L) // подписываемся с задержкой получения данных
+                binding.tvFlow.append(it.toString())
+                println(it)
+            }
+        }
+    }
+    //------------------
+    private fun createSharedFlow(): Flow<Int> {
+        val sharedFlow = MutableSharedFlow<Int>(replay = 5)
+
+        CoroutineScope(Dispatchers.Default).launch {
+            for (i in 0 until 7) { //
+                sharedFlow.emit(Random.nextInt(1, 33))
+                delay(250)
+            }
+        }
+
+        return sharedFlow
     }
 
-    private fun setupFlow() {
+    private fun hotFlow() {
+        val flow = createSharedFlow()
+
+        CoroutineScope(Dispatchers.Main).launch {
+            flow.collect {
+                binding.tvFlow.append(it.toString())
+                println("Подписчик # 1: $it")
+            }
+        }
+
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(1000L) // останавливаем на 1 сек получение данных
+            flow.collect {
+                binding.tvFlow.append(it.toString())
+                println("Подписчик # 2: $it")
+            }
+        }
+    }
+    //------------------
+    private fun coldFlow() {
         flow = flow {
             for(i in 1..100000) {
                 delay(100) // кидаем данные с задержкой
